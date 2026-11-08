@@ -4,6 +4,8 @@
 #   leduc    thinking traces (4 shards of 16) + a thinking-off pass; MODELS overrides the model list
 #   SHARDS="0 2" reruns only those thinking shards (no thinking-off pass), e.g. after a timeout
 #   kuhn_rep replication of the Kuhn 4B tell: 4 fresh shards (seeds 4-7) under runs/kuhn/4B/think_rep
+#   family   other model families on Kuhn (FAMILY, default "R1-7B Phi4-mini"): shards 0-3 under think,
+#            replication shards 4-7 under think_rep
 #   calibrate  CPU: leak estimator on synthetic tells (Kuhn 4B and Leduc 0.6B information sets), then the summary
 #   heldout  thinking-off passes of the base models on the other train and held-out variants
 #   distill  LoRA distillation for 0.6B and 1.7B, then thinking-off passes on every variant
@@ -42,6 +44,19 @@ case "${1:?stage}" in
     for s in 4 5 6 7; do
       gpu "tk_kuhn_4B_rep_s$s" 03:00:00 python experiments/sample.py --game kuhn --model Qwen/Qwen3-4B --n 128 --seed "$s" \
         --max-think "$CAP" --budgets "$BUDGETS" --out "runs/kuhn/4B/think_rep/shard$s"
+    done ;;
+  family)
+    for m in ${FAMILY:-R1-7B Phi4-mini}; do
+      case $m in
+        R1-7B) hf=deepseek-ai/DeepSeek-R1-Distill-Qwen-7B t=02:00:00 ;;
+        Phi4-mini) hf=microsoft/Phi-4-mini-reasoning t=06:00:00 ;;
+        *) echo "unknown family model $m" >&2; exit 1 ;;
+      esac
+      for s in ${SHARDS:-0 1 2 3 4 5 6 7}; do
+        dir=think; [ "$s" -lt 4 ] || dir=think_rep
+        gpu "tk_kuhn_${m}_s$s" "$t" python experiments/sample.py --game kuhn --model "$hf" --n 128 --seed "$s" \
+          --max-think "$CAP" --out "runs/kuhn/$m/$dir/shard$s"
+      done
     done ;;
   calibrate)
     cal() { sbatch --parsable --job-name="tk_cal_$1" --gres=none --time="$2" --mem=32G scripts/job.sbatch \
