@@ -1,0 +1,1037 @@
+{
+ "run": "runs/kuhn/1.7B/think",
+ "k": 4,
+ "padding": [
+  {
+   "defense": "none",
+   "param": 0,
+   "leak_mean": -3.2090487569793096,
+   "leak_sd": 4.794223507941978,
+   "leak_se": 1.5160665897018997,
+   "added_tokens_mean": 0.0,
+   "added_tokens_sd": 0.0,
+   "added_tokens_se": 0.0
+  },
+  {
+   "defense": "constant",
+   "param": 8192,
+   "leak_mean": 0.0,
+   "leak_sd": 0.0,
+   "leak_se": 0.0,
+   "added_tokens_mean": 1786.9586958038494,
+   "added_tokens_sd": 21.90331721920274,
+   "added_tokens_se": 6.926437072586621
+  },
+  {
+   "defense": "random",
+   "param": 1024.0,
+   "leak_mean": -0.34783415123120986,
+   "leak_sd": 3.6754761183575857,
+   "leak_se": 1.1622876019564583,
+   "added_tokens_mean": 514.9144227025048,
+   "added_tokens_sd": 5.488848582279019,
+   "added_tokens_se": 1.735726325178782
+  },
+  {
+   "defense": "random",
+   "param": 2048.0,
+   "leak_mean": 0.4213878283704574,
+   "leak_sd": 5.1299609218372995,
+   "leak_se": 1.6222360820662876,
+   "added_tokens_mean": 1016.4751320819621,
+   "added_tokens_sd": 14.825807407448792,
+   "added_tokens_se": 4.688331955853419
+  },
+  {
+   "defense": "random",
+   "param": 4096.0,
+   "leak_mean": -3.052730951998069,
+   "leak_sd": 4.6880523488645744,
+   "leak_se": 1.482492321251434,
+   "added_tokens_mean": 2047.4559938758691,
+   "added_tokens_sd": 21.64733619249352,
+   "added_tokens_se": 6.845488764367667
+  },
+  {
+   "defense": "random",
+   "param": 8192,
+   "leak_mean": -5.972475744730462,
+   "leak_sd": 5.6418423335850445,
+   "leak_se": 1.7841071973688223,
+   "added_tokens_mean": 4101.136122386222,
+   "added_tokens_sd": 59.206646609595275,
+   "added_tokens_se": 18.722785590700703
+  },
+  {
+   "defense": "random",
+   "param": 16384,
+   "leak_mean": -4.013135823494491,
+   "leak_sd": 2.297953575550883,
+   "leak_se": 0.7266767256068607,
+   "added_tokens_mean": 8210.371845209647,
+   "added_tokens_sd": 94.84940176123067,
+   "added_tokens_se": 29.994014426987505
+  },
+  {
+   "defense": "lp",
+   "param": 0.0,
+   "leak_mean": -4.5838863110436465,
+   "leak_sd": 3.483699051011013,
+   "leak_se": 1.101642368376191,
+   "added_tokens_mean": 388.3153335715243,
+   "added_tokens_sd": 16.598145813011005,
+   "added_tokens_se": 5.248794570470202
+  },
+  {
+   "defense": "lp",
+   "param": 0.02,
+   "leak_mean": -4.662364594806009,
+   "leak_sd": 3.589003199531978,
+   "leak_se": 1.134942464015281,
+   "added_tokens_mean": 296.0827645636101,
+   "added_tokens_sd": 18.08727452831362,
+   "added_tokens_se": 5.719698417421872
+  },
+  {
+   "defense": "lp",
+   "param": 0.05,
+   "leak_mean": -3.37277487970903,
+   "leak_sd": 4.911815480782999,
+   "leak_se": 1.5532524365749285,
+   "added_tokens_mean": 185.45294564305823,
+   "added_tokens_sd": 14.948021643172758,
+   "added_tokens_se": 4.726979490591864
+  },
+  {
+   "defense": "lp",
+   "param": 0.1,
+   "leak_mean": -1.4981480574391384,
+   "leak_sd": 5.533170280024945,
+   "leak_se": 1.7497420766430498,
+   "added_tokens_mean": 102.55231224341006,
+   "added_tokens_sd": 9.861818593052726,
+   "added_tokens_se": 3.118580862544379
+  },
+  {
+   "defense": "lp",
+   "param": 0.2,
+   "leak_mean": -2.0747120837806974,
+   "leak_sd": 2.3627388469615607,
+   "leak_se": 0.7471636272558538,
+   "added_tokens_mean": 56.52310554779869,
+   "added_tokens_sd": 3.2440276725531643,
+   "added_tokens_se": 1.0258516237882893
+  }
+ ],
+ "padding_rows": [
+  {
+   "rep": 0,
+   "defense": "none",
+   "param": 0,
+   "leak": -6.6042150880785755,
+   "added_tokens": 0.0
+  },
+  {
+   "rep": 0,
+   "defense": "constant",
+   "param": 8192,
+   "leak": 0.0,
+   "added_tokens": 1783.1415785185964
+  },
+  {
+   "rep": 0,
+   "defense": "random",
+   "param": 1024.0,
+   "leak": -7.200572982292599,
+   "added_tokens": 512.0400964280507
+  },
+  {
+   "rep": 0,
+   "defense": "random",
+   "param": 2048.0,
+   "leak": -0.8931472928589699,
+   "added_tokens": 1032.9039694248158
+  },
+  {
+   "rep": 0,
+   "defense": "random",
+   "param": 4096.0,
+   "leak": -2.908676481407497,
+   "added_tokens": 2034.3384355148683
+  },
+  {
+   "rep": 0,
+   "defense": "random",
+   "param": 8192,
+   "leak": -9.239715825066853,
+   "added_tokens": 4184.802363042612
+  },
+  {
+   "rep": 0,
+   "defense": "random",
+   "param": 16384,
+   "leak": -6.887508131506706,
+   "added_tokens": 8266.345180671278
+  },
+  {
+   "rep": 0,
+   "defense": "lp",
+   "param": 0.0,
+   "leak": -1.3389645222141553,
+   "added_tokens": 413.28234895575133
+  },
+  {
+   "rep": 0,
+   "defense": "lp",
+   "param": 0.02,
+   "leak": -1.4115110204967323,
+   "added_tokens": 296.62445844726335
+  },
+  {
+   "rep": 0,
+   "defense": "lp",
+   "param": 0.05,
+   "leak": -1.0308763537438779,
+   "added_tokens": 190.91205075194466
+  },
+  {
+   "rep": 0,
+   "defense": "lp",
+   "param": 0.1,
+   "leak": -7.2587595656248,
+   "added_tokens": 106.89513322474795
+  },
+  {
+   "rep": 0,
+   "defense": "lp",
+   "param": 0.2,
+   "leak": -7.732200641456856,
+   "added_tokens": 60.67417907214076
+  },
+  {
+   "rep": 1,
+   "defense": "none",
+   "param": 0,
+   "leak": -3.7296117024615967,
+   "added_tokens": 0.0
+  },
+  {
+   "rep": 1,
+   "defense": "constant",
+   "param": 8192,
+   "leak": 0.0,
+   "added_tokens": 1766.764287914827
+  },
+  {
+   "rep": 1,
+   "defense": "random",
+   "param": 1024.0,
+   "leak": -1.8978420033442376,
+   "added_tokens": 507.73499877119866
+  },
+  {
+   "rep": 1,
+   "defense": "random",
+   "param": 2048.0,
+   "leak": -2.3458311542052854,
+   "added_tokens": 983.6308733236283
+  },
+  {
+   "rep": 1,
+   "defense": "random",
+   "param": 4096.0,
+   "leak": -10.496731013168983,
+   "added_tokens": 2062.345787553725
+  },
+  {
+   "rep": 1,
+   "defense": "random",
+   "param": 8192,
+   "leak": -3.723237259019072,
+   "added_tokens": 4061.7960842204493
+  },
+  {
+   "rep": 1,
+   "defense": "random",
+   "param": 16384,
+   "leak": -2.7672826620612057,
+   "added_tokens": 8102.272515148666
+  },
+  {
+   "rep": 1,
+   "defense": "lp",
+   "param": 0.0,
+   "leak": -10.53336377369618,
+   "added_tokens": 383.43979461402705
+  },
+  {
+   "rep": 1,
+   "defense": "lp",
+   "param": 0.02,
+   "leak": -13.439570143898464,
+   "added_tokens": 279.13958034023744
+  },
+  {
+   "rep": 1,
+   "defense": "lp",
+   "param": 0.05,
+   "leak": -10.422987957254662,
+   "added_tokens": 178.06416717143202
+  },
+  {
+   "rep": 1,
+   "defense": "lp",
+   "param": 0.1,
+   "leak": -6.975901287683669,
+   "added_tokens": 94.72709300342922
+  },
+  {
+   "rep": 1,
+   "defense": "lp",
+   "param": 0.2,
+   "leak": 0.42711491379168365,
+   "added_tokens": 51.93814811318498
+  },
+  {
+   "rep": 2,
+   "defense": "none",
+   "param": 0,
+   "leak": -6.776908929009096,
+   "added_tokens": 0.0
+  },
+  {
+   "rep": 2,
+   "defense": "constant",
+   "param": 8192,
+   "leak": 0.0,
+   "added_tokens": 1752.9373410579137
+  },
+  {
+   "rep": 2,
+   "defense": "random",
+   "param": 1024.0,
+   "leak": -3.5462819515175568,
+   "added_tokens": 513.8848232134887
+  },
+  {
+   "rep": 2,
+   "defense": "random",
+   "param": 2048.0,
+   "leak": -5.028774750670607,
+   "added_tokens": 1024.3620168740508
+  },
+  {
+   "rep": 2,
+   "defense": "random",
+   "param": 4096.0,
+   "leak": -3.3026420842483333,
+   "added_tokens": 2079.0684085529356
+  },
+  {
+   "rep": 2,
+   "defense": "random",
+   "param": 8192,
+   "leak": -3.9090213131725022,
+   "added_tokens": 4077.7098574267784
+  },
+  {
+   "rep": 2,
+   "defense": "random",
+   "param": 16384,
+   "leak": -6.790096612699557,
+   "added_tokens": 8158.396788569236
+  },
+  {
+   "rep": 2,
+   "defense": "lp",
+   "param": 0.0,
+   "leak": -6.00976726333613,
+   "added_tokens": 367.5860428209289
+  },
+  {
+   "rep": 2,
+   "defense": "lp",
+   "param": 0.02,
+   "leak": -1.9532477833419932,
+   "added_tokens": 293.5159787858038
+  },
+  {
+   "rep": 2,
+   "defense": "lp",
+   "param": 0.05,
+   "leak": -5.064148656626571,
+   "added_tokens": 189.2140766329312
+  },
+  {
+   "rep": 2,
+   "defense": "lp",
+   "param": 0.1,
+   "leak": -8.181104264532848,
+   "added_tokens": 99.00337500199475
+  },
+  {
+   "rep": 2,
+   "defense": "lp",
+   "param": 0.2,
+   "leak": -3.1773918204741562,
+   "added_tokens": 55.35444096363699
+  },
+  {
+   "rep": 3,
+   "defense": "none",
+   "param": 0,
+   "leak": 5.568748518011915,
+   "added_tokens": 0.0
+  },
+  {
+   "rep": 3,
+   "defense": "constant",
+   "param": 8192,
+   "leak": 0.0,
+   "added_tokens": 1804.3849003963296
+  },
+  {
+   "rep": 3,
+   "defense": "random",
+   "param": 1024.0,
+   "leak": 4.621032420836912,
+   "added_tokens": 510.9910651117734
+  },
+  {
+   "rep": 3,
+   "defense": "random",
+   "param": 2048.0,
+   "leak": 5.4478872059508205,
+   "added_tokens": 1016.8600993585424
+  },
+  {
+   "rep": 3,
+   "defense": "random",
+   "param": 4096.0,
+   "leak": 1.3133501907250889,
+   "added_tokens": 2011.9101103554058
+  },
+  {
+   "rep": 3,
+   "defense": "random",
+   "param": 8192,
+   "leak": -7.135829327959996,
+   "added_tokens": 4038.2985709948443
+  },
+  {
+   "rep": 3,
+   "defense": "random",
+   "param": 16384,
+   "leak": -7.354409783591109,
+   "added_tokens": 8222.266872101995
+  },
+  {
+   "rep": 3,
+   "defense": "lp",
+   "param": 0.0,
+   "leak": 0.09327174141557748,
+   "added_tokens": 385.5561334607337
+  },
+  {
+   "rep": 3,
+   "defense": "lp",
+   "param": 0.02,
+   "leak": -2.509600056196831,
+   "added_tokens": 291.9695446945734
+  },
+  {
+   "rep": 3,
+   "defense": "lp",
+   "param": 0.05,
+   "leak": -3.967843813410582,
+   "added_tokens": 187.5654984201201
+  },
+  {
+   "rep": 3,
+   "defense": "lp",
+   "param": 0.1,
+   "leak": 5.474091601215719,
+   "added_tokens": 99.18211853982575
+  },
+  {
+   "rep": 3,
+   "defense": "lp",
+   "param": 0.2,
+   "leak": -1.4450128503418398,
+   "added_tokens": 59.80143099971974
+  },
+  {
+   "rep": 4,
+   "defense": "none",
+   "param": 0,
+   "leak": 2.968459202398691,
+   "added_tokens": 0.0
+  },
+  {
+   "rep": 4,
+   "defense": "constant",
+   "param": 8192,
+   "leak": 0.0,
+   "added_tokens": 1818.0536649132027
+  },
+  {
+   "rep": 4,
+   "defense": "random",
+   "param": 1024.0,
+   "leak": 4.311216179076695,
+   "added_tokens": 515.1018684001456
+  },
+  {
+   "rep": 4,
+   "defense": "random",
+   "param": 2048.0,
+   "leak": 7.389088191257883,
+   "added_tokens": 1014.1968458429892
+  },
+  {
+   "rep": 4,
+   "defense": "random",
+   "param": 4096.0,
+   "leak": 0.5309205032286002,
+   "added_tokens": 2055.2414512129235
+  },
+  {
+   "rep": 4,
+   "defense": "random",
+   "param": 8192,
+   "leak": -6.735855704469827,
+   "added_tokens": 4165.748843738576
+  },
+  {
+   "rep": 4,
+   "defense": "random",
+   "param": 16384,
+   "leak": 0.048419250835110006,
+   "added_tokens": 8110.184739620945
+  },
+  {
+   "rep": 4,
+   "defense": "lp",
+   "param": 0.0,
+   "leak": -4.38374383492291,
+   "added_tokens": 382.99670605433766
+  },
+  {
+   "rep": 4,
+   "defense": "lp",
+   "param": 0.02,
+   "leak": -0.7171720768617718,
+   "added_tokens": 275.8825738417354
+  },
+  {
+   "rep": 4,
+   "defense": "lp",
+   "param": 0.05,
+   "leak": 7.929682837198385,
+   "added_tokens": 179.2861332115399
+  },
+  {
+   "rep": 4,
+   "defense": "lp",
+   "param": 0.1,
+   "leak": 7.940104155129575,
+   "added_tokens": 104.49329960409796
+  },
+  {
+   "rep": 4,
+   "defense": "lp",
+   "param": 0.2,
+   "leak": 1.397371932982992,
+   "added_tokens": 52.964001528664994
+  },
+  {
+   "rep": 5,
+   "defense": "none",
+   "param": 0,
+   "leak": -10.678876183067345,
+   "added_tokens": 0.0
+  },
+  {
+   "rep": 5,
+   "defense": "constant",
+   "param": 8192,
+   "leak": 0.0,
+   "added_tokens": 1818.587907846434
+  },
+  {
+   "rep": 5,
+   "defense": "random",
+   "param": 1024.0,
+   "leak": -1.0003444596464135,
+   "added_tokens": 525.8818730910862
+  },
+  {
+   "rep": 5,
+   "defense": "random",
+   "param": 2048.0,
+   "leak": -8.673075601680964,
+   "added_tokens": 999.2525093620079
+  },
+  {
+   "rep": 5,
+   "defense": "random",
+   "param": 4096.0,
+   "leak": -7.856555786820053,
+   "added_tokens": 2079.5300337852923
+  },
+  {
+   "rep": 5,
+   "defense": "random",
+   "param": 8192,
+   "leak": -18.265694369539233,
+   "added_tokens": 4191.237772769068
+  },
+  {
+   "rep": 5,
+   "defense": "random",
+   "param": 16384,
+   "leak": -2.7743970758417618,
+   "added_tokens": 8379.770937040052
+  },
+  {
+   "rep": 5,
+   "defense": "lp",
+   "param": 0.0,
+   "leak": -3.4070132170220404,
+   "added_tokens": 381.69713585829777
+  },
+  {
+   "rep": 5,
+   "defense": "lp",
+   "param": 0.02,
+   "leak": -2.6166736554768875,
+   "added_tokens": 301.27825388269866
+  },
+  {
+   "rep": 5,
+   "defense": "lp",
+   "param": 0.05,
+   "leak": -4.531547289160102,
+   "added_tokens": 199.9480521369196
+  },
+  {
+   "rep": 5,
+   "defense": "lp",
+   "param": 0.1,
+   "leak": -4.902451840427716,
+   "added_tokens": 115.38859980552661
+  },
+  {
+   "rep": 5,
+   "defense": "lp",
+   "param": 0.2,
+   "leak": -2.082884594075182,
+   "added_tokens": 58.2595120004562
+  },
+  {
+   "rep": 6,
+   "defense": "none",
+   "param": 0,
+   "leak": 1.3298653253952182,
+   "added_tokens": 0.0
+  },
+  {
+   "rep": 6,
+   "defense": "constant",
+   "param": 8192,
+   "leak": 0.0,
+   "added_tokens": 1763.112887870072
+  },
+  {
+   "rep": 6,
+   "defense": "random",
+   "param": 1024.0,
+   "leak": -1.1951308013006496,
+   "added_tokens": 516.0656183324227
+  },
+  {
+   "rep": 6,
+   "defense": "random",
+   "param": 2048.0,
+   "leak": 7.525603611290279,
+   "added_tokens": 1024.7867725652823
+  },
+  {
+   "rep": 6,
+   "defense": "random",
+   "param": 4096.0,
+   "leak": 6.668380940788808,
+   "added_tokens": 2045.8551168030926
+  },
+  {
+   "rep": 6,
+   "defense": "random",
+   "param": 8192,
+   "leak": 5.795564421382721,
+   "added_tokens": 4113.2815780978735
+  },
+  {
+   "rep": 6,
+   "defense": "random",
+   "param": 16384,
+   "leak": -1.9980114121875374,
+   "added_tokens": 8359.949880253447
+  },
+  {
+   "rep": 6,
+   "defense": "lp",
+   "param": 0.0,
+   "leak": -2.0947360966734436,
+   "added_tokens": 365.1270295812792
+  },
+  {
+   "rep": 6,
+   "defense": "lp",
+   "param": 0.02,
+   "leak": -5.553752885771701,
+   "added_tokens": 271.637820529947
+  },
+  {
+   "rep": 6,
+   "defense": "lp",
+   "param": 0.05,
+   "leak": 0.9969295642841303,
+   "added_tokens": 146.29915242243442
+  },
+  {
+   "rep": 6,
+   "defense": "lp",
+   "param": 0.1,
+   "leak": 4.209299834216438,
+   "added_tokens": 81.10040700629452
+  },
+  {
+   "rep": 6,
+   "defense": "lp",
+   "param": 0.2,
+   "leak": -3.7026493466763384,
+   "added_tokens": 53.94504880698514
+  },
+  {
+   "rep": 7,
+   "defense": "none",
+   "param": 0,
+   "leak": -6.699097390584427,
+   "added_tokens": 0.0
+  },
+  {
+   "rep": 7,
+   "defense": "constant",
+   "param": 8192,
+   "leak": 0.0,
+   "added_tokens": 1803.1595301245034
+  },
+  {
+   "rep": 7,
+   "defense": "random",
+   "param": 1024.0,
+   "leak": -2.9425331929019194,
+   "added_tokens": 519.8977182234657
+  },
+  {
+   "rep": 7,
+   "defense": "random",
+   "param": 2048.0,
+   "leak": -1.3339413797913835,
+   "added_tokens": 1011.8752089096943
+  },
+  {
+   "rep": 7,
+   "defense": "random",
+   "param": 4096.0,
+   "leak": -3.1069288718273924,
+   "added_tokens": 2028.9106998936295
+  },
+  {
+   "rep": 7,
+   "defense": "random",
+   "param": 8192,
+   "leak": -4.163770363265172,
+   "added_tokens": 4008.531028104462
+  },
+  {
+   "rep": 7,
+   "defense": "random",
+   "param": 16384,
+   "leak": -3.7355275497526463,
+   "added_tokens": 8230.01575092188
+  },
+  {
+   "rep": 7,
+   "defense": "lp",
+   "param": 0.0,
+   "leak": -3.708059084190438,
+   "added_tokens": 397.72076296152864
+  },
+  {
+   "rep": 7,
+   "defense": "lp",
+   "param": 0.02,
+   "leak": -5.124186260964791,
+   "added_tokens": 329.1979854141355
+  },
+  {
+   "rep": 7,
+   "defense": "lp",
+   "param": 0.05,
+   "leak": -9.112199860379235,
+   "added_tokens": 201.78290642326465
+  },
+  {
+   "rep": 7,
+   "defense": "lp",
+   "param": 0.1,
+   "leak": -2.83727451201716,
+   "added_tokens": 117.95459184588435
+  },
+  {
+   "rep": 7,
+   "defense": "lp",
+   "param": 0.2,
+   "leak": -1.7741354698051452,
+   "added_tokens": 60.77768921967163
+  },
+  {
+   "rep": 8,
+   "defense": "none",
+   "param": 0,
+   "leak": -3.0365179387174237,
+   "added_tokens": 0.0
+  },
+  {
+   "rep": 8,
+   "defense": "constant",
+   "param": 8192,
+   "leak": 0.0,
+   "added_tokens": 1782.0593647742326
+  },
+  {
+   "rep": 8,
+   "defense": "random",
+   "param": 1024.0,
+   "leak": 1.4992348665476811,
+   "added_tokens": 519.9347381356902
+  },
+  {
+   "rep": 8,
+   "defense": "random",
+   "param": 2048.0,
+   "leak": -1.503764987428582,
+   "added_tokens": 1035.8104326089942
+  },
+  {
+   "rep": 8,
+   "defense": "random",
+   "param": 4096.0,
+   "leak": -4.995847811348341,
+   "added_tokens": 2053.5048363357846
+  },
+  {
+   "rep": 8,
+   "defense": "random",
+   "param": 8192,
+   "leak": -4.8671488399850205,
+   "added_tokens": 4100.318993575344
+  },
+  {
+   "rep": 8,
+   "defense": "random",
+   "param": 16384,
+   "leak": -4.920092508829896,
+   "added_tokens": 8144.953110892425
+  },
+  {
+   "rep": 8,
+   "defense": "lp",
+   "param": 0.0,
+   "leak": -11.04619898636524,
+   "added_tokens": 386.3146204055911
+  },
+  {
+   "rep": 8,
+   "defense": "lp",
+   "param": 0.02,
+   "leak": -7.1865188619478175,
+   "added_tokens": 296.67050953636317
+  },
+  {
+   "rep": 8,
+   "defense": "lp",
+   "param": 0.05,
+   "leak": -4.534461418742723,
+   "added_tokens": 194.46611830607162
+  },
+  {
+   "rep": 8,
+   "defense": "lp",
+   "param": 0.1,
+   "leak": 1.4685518268411784,
+   "added_tokens": 104.14893822099748
+  },
+  {
+   "rep": 8,
+   "defense": "lp",
+   "param": 0.2,
+   "leak": -1.1917697466642778,
+   "added_tokens": 53.1823870810631
+  },
+  {
+   "rep": 9,
+   "defense": "none",
+   "param": 0,
+   "leak": -4.432333383680458,
+   "added_tokens": 0.0
+  },
+  {
+   "rep": 9,
+   "defense": "constant",
+   "param": 8192,
+   "leak": 0.0,
+   "added_tokens": 1777.3854946223846
+  },
+  {
+   "rep": 9,
+   "defense": "random",
+   "param": 1024.0,
+   "leak": 3.872880412229989,
+   "added_tokens": 507.61142731772634
+  },
+  {
+   "rep": 9,
+   "defense": "random",
+   "param": 2048.0,
+   "leak": 3.629834441841382,
+   "added_tokens": 1021.0725925496145
+  },
+  {
+   "rep": 9,
+   "defense": "random",
+   "param": 4096.0,
+   "leak": -6.372579105902588,
+   "added_tokens": 2023.8550587510317
+  },
+  {
+   "rep": 9,
+   "defense": "random",
+   "param": 8192,
+   "leak": -7.480048866209671,
+   "added_tokens": 4069.636131892209
+  },
+  {
+   "rep": 9,
+   "defense": "random",
+   "param": 16384,
+   "leak": -2.9524517493096027,
+   "added_tokens": 8129.562676876553
+  },
+  {
+   "rep": 9,
+   "defense": "lp",
+   "param": 0.0,
+   "leak": -3.410288073431502,
+   "added_tokens": 419.4327610027676
+  },
+  {
+   "rep": 9,
+   "defense": "lp",
+   "param": 0.02,
+   "leak": -6.111413203103098,
+   "added_tokens": 324.9109401633432
+  },
+  {
+   "rep": 9,
+   "defense": "lp",
+   "param": 0.05,
+   "leak": -3.9902958492550624,
+   "added_tokens": 186.9913009539241
+  },
+  {
+   "rep": 9,
+   "defense": "lp",
+   "param": 0.1,
+   "leak": -3.9180365215080997,
+   "added_tokens": 102.62956618130193
+  },
+  {
+   "rep": 9,
+   "defense": "lp",
+   "param": 0.2,
+   "leak": -1.4655632150878546,
+   "added_tokens": 58.334217692463426
+  }
+ ],
+ "budgets": [
+  {
+   "lam": 0.0,
+   "exploitability": 263.74702401807747,
+   "reported_tokens": 7673.206733804455,
+   "compute_tokens": 6108.035750416804,
+   "schedule": {
+    "0|-1|": 8192,
+    "0|-1|cr": 8192,
+    "1|-1|c": 4096,
+    "1|-1|r": 8192
+   }
+  },
+  {
+   "lam": 0.003,
+   "exploitability": 263.74702401807747,
+   "reported_tokens": 7673.206733804455,
+   "compute_tokens": 6108.035750416804,
+   "schedule": {
+    "0|-1|": 8192,
+    "0|-1|cr": 8192,
+    "1|-1|c": 4096,
+    "1|-1|r": 8192
+   }
+  },
+  {
+   "lam": 0.01,
+   "exploitability": 296.77573252768184,
+   "reported_tokens": 4096.0,
+   "compute_tokens": 4020.1222273903727,
+   "schedule": {
+    "0|-1|": 4096,
+    "0|-1|cr": 4096,
+    "1|-1|c": 4096,
+    "1|-1|r": 4096
+   }
+  },
+  {
+   "lam": 0.03,
+   "exploitability": 333.3331024700099,
+   "reported_tokens": 128.0,
+   "compute_tokens": 128.0,
+   "schedule": {
+    "0|-1|": 128,
+    "0|-1|cr": 128,
+    "1|-1|c": 128,
+    "1|-1|r": 128
+   }
+  },
+  {
+   "lam": 0.1,
+   "exploitability": 333.3331024700099,
+   "reported_tokens": 128.0,
+   "compute_tokens": 128.0,
+   "schedule": {
+    "0|-1|": 128,
+    "0|-1|cr": 128,
+    "1|-1|c": 128,
+    "1|-1|r": 128
+   }
+  },
+  {
+   "lam": null,
+   "exploitability": 263.7538999764739,
+   "reported_tokens": 6377.496605921988,
+   "compute_tokens": 6377.496605921988,
+   "schedule": "full thinking, unpadded"
+  }
+ ]
+}

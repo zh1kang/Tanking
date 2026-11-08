@@ -1,0 +1,19 @@
+{
+ "run": "runs/leduc/distill_0.6B/nothink",
+ "game": "leduc",
+ "model": "checkpoints/distill_0.6B",
+ "mode": "nothink",
+ "meta": {
+  "n": 64,
+  "max_think": 8192,
+  "seed": 0,
+  "gen_seconds": 7.414817810058594e-05,
+  "score_seconds": 0.3566603660583496,
+  "generated_tokens": 0,
+  "truncated": 0.0,
+  "legal_mass": 0.9993083602434266
+ },
+ "tokens_per_decision": 0.0,
+ "ev_vs_nash": -35.43972837721993,
+ "exploitability": 241.7596688944881
+}

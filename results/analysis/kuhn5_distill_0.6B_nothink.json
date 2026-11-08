@@ -1,0 +1,19 @@
+{
+ "run": "runs/kuhn5/distill_0.6B/nothink",
+ "game": "kuhn5",
+ "model": "checkpoints/distill_0.6B",
+ "mode": "nothink",
+ "meta": {
+  "n": 64,
+  "max_think": 8192,
+  "seed": 0,
+  "gen_seconds": 5.650520324707031e-05,
+  "score_seconds": 0.2420361042022705,
+  "generated_tokens": 0,
+  "truncated": 0.0,
+  "legal_mass": 0.9996985945389735
+ },
+ "tokens_per_decision": 0.0,
+ "ev_vs_nash": -11.809586181522668,
+ "exploitability": 70.26744060714206
+}

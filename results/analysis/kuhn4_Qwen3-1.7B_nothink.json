@@ -1,0 +1,19 @@
+{
+ "run": "runs/kuhn4/1.7B/nothink",
+ "game": "kuhn4",
+ "model": "Qwen/Qwen3-1.7B",
+ "mode": "nothink",
+ "meta": {
+  "n": 64,
+  "max_think": 8192,
+  "seed": 0,
+  "gen_seconds": 3.0517578125e-05,
+  "score_seconds": 0.1860806941986084,
+  "generated_tokens": 0,
+  "truncated": 0.0,
+  "legal_mass": 0.9999999992342447
+ },
+ "tokens_per_decision": 0.0,
+ "ev_vs_nash": -106.79979549224508,
+ "exploitability": 249.99997759755962
+}

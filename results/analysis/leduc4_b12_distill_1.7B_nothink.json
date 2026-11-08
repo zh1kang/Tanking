@@ -1,0 +1,19 @@
+{
+ "run": "runs/leduc4_b12/distill_1.7B/nothink",
+ "game": "leduc4_b12",
+ "model": "checkpoints/distill_1.7B",
+ "mode": "nothink",
+ "meta": {
+  "n": 64,
+  "max_think": 8192,
+  "seed": 0,
+  "gen_seconds": 8.368492126464844e-05,
+  "score_seconds": 1.4627013206481934,
+  "generated_tokens": 0,
+  "truncated": 0.0,
+  "legal_mass": 0.9994063375370047
+ },
+ "tokens_per_decision": 0.0,
+ "ev_vs_nash": -60.09360705473563,
+ "exploitability": 337.41113144319706
+}

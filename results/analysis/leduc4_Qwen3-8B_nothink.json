@@ -1,0 +1,19 @@
+{
+ "run": "runs/leduc4/8B/nothink",
+ "game": "leduc4",
+ "model": "Qwen/Qwen3-8B",
+ "mode": "nothink",
+ "meta": {
+  "n": 64,
+  "max_think": 8192,
+  "seed": 0,
+  "gen_seconds": 8.344650268554688e-05,
+  "score_seconds": 2.9731204509735107,
+  "generated_tokens": 0,
+  "truncated": 0.0,
+  "legal_mass": 0.9986617030167239
+ },
+ "tokens_per_decision": 0.0,
+ "ev_vs_nash": -518.7962150460397,
+ "exploitability": 2257.6294328639187
+}

@@ -1,0 +1,19 @@
+{
+ "run": "runs/kuhn/8B/nothink",
+ "game": "kuhn",
+ "model": "Qwen/Qwen3-8B",
+ "mode": "nothink",
+ "meta": {
+  "n": 64,
+  "max_think": 8192,
+  "seed": 0,
+  "gen_seconds": 5.793571472167969e-05,
+  "score_seconds": 0.2024366855621338,
+  "generated_tokens": 0,
+  "truncated": 0.0,
+  "legal_mass": 0.9998523639755507
+ },
+ "tokens_per_decision": 0.0,
+ "ev_vs_nash": -114.77839944265786,
+ "exploitability": 334.15353737874733
+}

@@ -1,0 +1,19 @@
+{
+ "run": "runs/leduc4_b12/4B/nothink",
+ "game": "leduc4_b12",
+ "model": "Qwen/Qwen3-4B",
+ "mode": "nothink",
+ "meta": {
+  "n": 64,
+  "max_think": 8192,
+  "seed": 0,
+  "gen_seconds": 8.797645568847656e-05,
+  "score_seconds": 1.4572069644927979,
+  "generated_tokens": 0,
+  "truncated": 0.0,
+  "legal_mass": 0.9999980004466891
+ },
+ "tokens_per_decision": 0.0,
+ "ev_vs_nash": -251.89965971018248,
+ "exploitability": 1140.3463138553707
+}
