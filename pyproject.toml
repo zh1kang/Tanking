@@ -1,0 +1,40 @@
+[project]
+name = "tanking"
+version = "0.1.0"
+description = "Thinking time as a poker tell: measuring and removing timing leakage in reasoning LLMs"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "numpy==2.3.5",
+    "scipy==1.18.1",
+    "scikit-learn==1.9.1",
+    "matplotlib==3.11.2",
+    "pyyaml==6.0.3",
+]
+
+[project.optional-dependencies]
+gpu = [
+    "vllm==0.33.0",
+    "torch==2.14.0",
+    "transformers==5.20.2",
+    "peft==0.21.2",
+    "accelerate==1.15.0",
+]
+
+[dependency-groups]
+dev = ["pytest==9.2.0", "ruff==0.17.4"]
+
+[tool.uv]
+package = false
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+
+[tool.ruff]
+line-length = 120
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+ignore = ["B905"]
+
+[tool.ruff.lint.per-file-ignores]
+"experiments/report.py" = ["E501"]
