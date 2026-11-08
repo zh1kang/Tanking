@@ -79,6 +79,11 @@ def main():
             meta=ts.meta,
             tokens_per_decision=tokens_per_decision(ts),
             ev_vs_nash=MBB * ev_vs(tree, s, nash),
+            validity=dict(
+                legal_mass=float(ts.mass.mean()),
+                low_mass=float((ts.mass < 0.5).mean()),
+                truncated=float(1 - ts.closed.mean()),
+            ),
         )
         if ts.mode == "think":
             res["phase1"] = measure(ts, k, n_boot=a.boot)
