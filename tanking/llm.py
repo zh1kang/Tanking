@@ -2,6 +2,7 @@
 
 A trace's observable thinking time is its number of generated thinking tokens (the closing </think> excluded).
 Traces that hit the cap, or are cut to a budget, are closed with an early-stop sentence before the answer.
+Tokenizers without a single `</think>` token stop on the string instead, and the tokens spelling it are dropped.
 """
 
 from dataclasses import dataclass
@@ -33,12 +34,14 @@ class Engine:
             max_logprobs=20,
         )
         self.tok = self.llm.get_tokenizer()
-        self.think_end = self.tok.convert_tokens_to_ids("</think>")
-        self.action_id = {}
+        end = self.tok.convert_tokens_to_ids("</think>")
+        self.think_end = end if isinstance(end, int) and self.tok.decode([end]) == "</think>" else None
+        self.action_ids = {}
         for w in ACTIONS:
             ids = self.tok.encode(" " + w, add_special_tokens=False)
             assert len(ids) == 1, f"' {w}' must be one token, got {ids}"
-            self.action_id[w] = ids[0]
+            cap = self.tok.encode(" " + w.capitalize(), add_special_tokens=False)
+            self.action_ids[w] = ids + cap if len(cap) == 1 else ids
         self.close_ids = self.tok.encode("</think>\n\n" + ANSWER_PREFIX, add_special_tokens=False)
         self.early_ids = self.tok.encode(EARLY_STOP, add_special_tokens=False)
         self.answer_ids = self.tok.encode(ANSWER_PREFIX, add_special_tokens=False)
@@ -54,35 +57,42 @@ class Engine:
     ) -> list[list[tuple[list[int], bool]]]:
         """n traces per prompt as (thinking token ids, finished before the cap); the cap may differ per prompt."""
         caps = max_think if isinstance(max_think, list) else [max_think] * len(prompts)
-        sp = [
-            SamplingParams(n=n, max_tokens=c, stop_token_ids=[self.think_end], seed=seed, **THINK_SAMPLING)
-            for c in caps
-        ]
+        stop = dict(stop_token_ids=[self.think_end]) if self.think_end is not None else dict(stop=["</think>"])
+        sp = [SamplingParams(n=n, max_tokens=c, seed=seed, **stop, **THINK_SAMPLING) for c in caps]
         outs = self.llm.generate([TokensPrompt(prompt_token_ids=p) for p in prompts], sp, use_tqdm=use_tqdm)
         result = []
         for o in outs:
             traces = []
             for c in o.outputs:
                 ids = list(c.token_ids)
-                done = c.finish_reason == "stop"
-                if ids and ids[-1] == self.think_end:
-                    ids = ids[:-1]
+                if self.think_end is not None:
+                    done = c.finish_reason == "stop"
+                    if ids and ids[-1] == self.think_end:
+                        ids = ids[:-1]
+                else:
+                    done = c.stop_reason == "</think>"
+                    ids = self._strip_think_end(ids) if done else ids
                 traces.append((ids, done))
             result.append(traces)
         return result
+
+    def _strip_think_end(self, ids: list[int]) -> list[int]:
+        for j in range(1, min(len(ids), 8) + 1):
+            if "</think>" in self.tok.decode(ids[-j:]):
+                return ids[:-j]
+        return ids
 
     def answer_prefix(self, prompt: list[int], thought: list[int], closed: bool) -> list[int]:
         return prompt + thought + (self.close_ids if closed else self.early_ids)
 
     def answers(self, prefixes: list[list[int]], words: list[list[str]]) -> list[Answer]:
-        """Distribution over each prefix's legal action words, renormalized from the next-token top-20 logprobs."""
+        """Distribution over each prefix's legal actions from the top-20 logprobs, pooling ' bet' and ' Bet'."""
         sp = SamplingParams(max_tokens=1, logprobs=20, temperature=1.0)
         outs = self.llm.generate([TokensPrompt(prompt_token_ids=p) for p in prefixes], sp, use_tqdm=False)
         res = []
         for o, ws in zip(outs, words):
             lp = o.outputs[0].logprobs[0]
-            x = np.array([lp[self.action_id[w]].logprob if self.action_id[w] in lp else -np.inf for w in ws])
-            m = np.exp(x)
+            m = np.array([sum(np.exp(lp[i].logprob) for i in self.action_ids[w] if i in lp) for w in ws])
             total = m.sum()
             res.append(Answer(m / total if total > 0 else np.full(len(ws), 1 / len(ws)), float(total)))
         return res
