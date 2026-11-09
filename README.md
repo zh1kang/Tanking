@@ -1,8 +1,8 @@
 # Tanking
 
 In poker, how long a player takes to act ("tanking") is a tell. Reasoning models think longer on hard decisions, so
-their thinking time might leak their private card. This project measures that leak in chips for Qwen3 reasoning
-models playing Kuhn and Leduc poker, tests whether an opponent can learn it in play, and compares defenses that
+their thinking time might leak their private card. This project measures that leak in chips for Qwen3 and two other
+reasoning models playing Kuhn and Leduc poker, tests whether an opponent can learn it in play, and compares defenses that
 remove it with fixes that make the model play better and run faster.
 
 Equilibria (CFR+) and best responses are computed on the full game tree, padding is solved as a linear program, and
@@ -13,7 +13,8 @@ the improved player is a supervised solver-distilled LoRA. There is no reinforce
 - **One of four Qwen3 models leaks its card through thinking time.** An opponent who sees Qwen3-4B's thinking time, as
   well as its actions, wins an extra **+17.7 mbb/hand** (95% CI +11.7 to +27.7) in Kuhn poker. A pre-registered
   replication on fresh samples gave +19.7 (+11.1 to +34.6). With the best card (king), 4B thinks 17–27% less at the
-  decisions its opponent can still react to. Qwen3-0.6B, 1.7B and 8B show no exploitable tell.
+  decisions its opponent can still react to. Qwen3-0.6B, 1.7B and 8B show no exploitable tell, and neither do
+  DeepSeek-R1-Distill-Qwen-7B and Phi-4-mini-reasoning (Phi's result is limited by the thinking cap).
 - **An opponent can learn the tell in a few thousand hands.** A Bayesian opponent that starts knowing nothing and
   learns only from the hands it plays is +18 mbb/hand ahead of one that ignores timing after 3,000 hands, and its
   cumulative extra winnings stay positive from then on. By a million hands it reaches +19.4, close to the
@@ -100,8 +101,31 @@ and are scored exactly against the other (`think_rep`), in both directions, over
 
 ## Other model families
 
-*Running:* DeepSeek-R1-Distill-Qwen-7B and Phi-4-mini-reasoning on Kuhn, with the same prompts, estimator and rule,
-and a replication set for each (pre-registered in [`9a23072`](https://github.com/zh1kang/Tanking/commit/9a23072)).
+Two reasoning models outside Qwen3 ran on Kuhn with the same prompts, sampling settings, cap, estimator and rule, each
+with a replication set analyzed alone. The rules, including when a measurement counts as valid, were pushed before any
+data ([`9a23072`](https://github.com/zh1kang/Tanking/commit/9a23072)).
+
+| Model | Set | Thinking tokens/decision | Truncated at cap | Legal-action mass | Leak [95% CI] | Null control [95% CI] | Exploitability |
+|---|---|---:|---:|---:|---|---|---:|
+| DeepSeek-R1-Distill-Qwen-7B | primary | 2,184 | 1% | 0.994 | +1.1 [−8.1, +5.9] | +0.1 [−2.9, +2.4] | 227 |
+| | replication | 2,124 | 1% | 0.993 | −2.0 [−7.6, +3.0] | −0.3 [−2.6, +2.0] | 231 |
+| Phi-4-mini-reasoning | primary | 6,037 | 33% | 0.993 | −2.7 [−11.3, +11.5] | −1.0 [−4.4, 0.0] | 223 |
+| | replication | 6,085 | 34% | 0.994 | +4.7 [−4.1, +17.3] | −0.8 [−2.9, 0.0] | 226 |
+
+**Pre-registered reading: no tell for either model.** Both primary leaks are below 2 mbb/hand, and both measurements
+are valid (mass above 0.9, at most 0.5% of traces below 0.5).
+
+- **R1 shows 4B's timing pattern without the leak.** With a king it also thinks less at the decisions its opponent
+  can react to (median 2,031 against 2,422–2,476 tokens when opening, 1,673 against 2,064–2,183 after a check). But its
+  thinking times overlap heavily across cards, a classifier gains nothing from them (−0.007 bits per decision), and
+  the gap is worth no chips.
+- **Phi is cap-limited.** A third of its traces hit the 8,192-token cap, and its median opening decision sits at the
+  cap for two of the three cards. So most of its timing variation is cut off before an opponent could see it. A
+  higher cap might reveal a tell this run cannot.
+- Both play between Qwen3-1.7B and Qwen3-8B with thinking (exploitability 223–231, against 265 and 167).
+
+So among six reasoning models from three families, Qwen3-4B is the only one with an exploitable tell under this
+protocol.
 
 ## Why Leduc is inconclusive: calibration on synthetic tells
 
@@ -296,7 +320,8 @@ The distilled models cost 2,300–6,200 times less GPU time per hand than thinki
   tell, so the token-based leak is an upper bound on what wall-clock time reveals.
 - **The learning opponent plays against a fixed policy.** The model does not adapt, and the opponent is given the
   bucket boundaries of thinking time rather than learning them.
-- **One prompt format.** Within Qwen3 the tell appears in one of four sizes and is not monotone in scale.
+- **One prompt format and one game for the other families.** Within Qwen3 the tell appears in one of four sizes and
+  is not monotone in scale; R1 and Phi were measured on Kuhn only.
 - **The distilled models train on the standard games' equilibria**, so their Kuhn and Leduc exploitability is
   in-distribution. The held-out table is the fair test of generalization.
 
@@ -310,7 +335,10 @@ The distilled models cost 2,300–6,200 times less GPU time per hand than thinki
 | Leduc thinking and thinking-off sampling, 3 models (including timed-out shards) | 69.0 |
 | Distillation and evaluation; held-out variants | 1.1 |
 | Serving benchmark | 4.8 |
-| **Total** | **95.7** |
+| Other families: smoke tests and answer-format check | 0.5 |
+| DeepSeek-R1-Distill-Qwen-7B, Kuhn, primary and replication | 2.7 |
+| Phi-4-mini-reasoning, Kuhn, primary and replication | 20.3 |
+| **Total** | **119.1** |
 
 Analysis, defenses, calibration and the learning opponent ran on CPU. Leduc took 69 GPU-hours against a planned 20,
 because thinking ran 3–4 times longer than the planned 2,048-token cap.
@@ -369,7 +397,7 @@ and pushed before any of their data
 |---|---|
 | `tanking/` | Game trees and CFR+ (`games`, `solve`), trace data, leak estimator, padding LP and budgets, vLLM engine |
 | `experiments/` | Sampling, analysis, defenses, distillation, serving benchmark, calibration, learning opponent, demo, report, Slurm submit |
-| `results/` | JSON outputs of the analysis, defenses, benchmark, calibration and learning opponent |
+| `results/` | JSON outputs of the analysis, replication, other families, defenses, benchmark, calibration and learning opponent |
 | `figures/` | Tell, leak, padding frontier, learning curve and strength-vs-cost figures |
 | `tests/` | Game, solver, estimator and defense tests |
 
@@ -384,6 +412,7 @@ experiments/submit.sh kuhn            # thinking traces for every model (Slurm, 
 experiments/submit.sh leduc
 experiments/submit.sh kuhn_rep        # replication shards for Kuhn 4B
 experiments/submit.sh family          # DeepSeek-R1-Distill-Qwen-7B and Phi-4-mini-reasoning on Kuhn
+python experiments/analyze.py runs/kuhn/R1-7B/think --out results/family/primary  # and think_rep, Phi4-mini
 experiments/submit.sh distill         # solver-distilled LoRA, then thinking-off evaluation
 experiments/submit.sh heldout
 experiments/submit.sh bench
