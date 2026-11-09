@@ -3,8 +3,10 @@
 __pycache__/
 *.pyc
 logs/
-runs/
+runs/smoke/
+runs/**/examples.jsonl
 checkpoints/
 .pytest_cache/
 .ruff_cache/
-results/**/*.md
+*.md
+!README.md

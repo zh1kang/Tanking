@@ -1,0 +1,30 @@
+{
+ "game": "kuhn",
+ "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+ "mode": "think",
+ "keys": [
+  "0|0|-1|",
+  "1|1|-1|c",
+  "0|0|-1|cr",
+  "1|1|-1|r",
+  "1|2|-1|c",
+  "1|2|-1|r",
+  "0|1|-1|",
+  "1|0|-1|c",
+  "0|1|-1|cr",
+  "1|0|-1|r",
+  "0|2|-1|",
+  "0|2|-1|cr"
+ ],
+ "budgets": [],
+ "meta": {
+  "n": 128,
+  "max_think": 8192,
+  "seed": 7,
+  "gen_seconds": 666.1594908237457,
+  "score_seconds": 204.44695663452148,
+  "generated_tokens": 3049656,
+  "truncated": 0.01497395833333337,
+  "legal_mass": 0.9890432846812299
+ }
+}
