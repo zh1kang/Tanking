@@ -10,25 +10,27 @@ the improved player is a supervised solver-distilled LoRA. There is no reinforce
 
 ## Results in brief
 
-- **One of four Qwen3 models leaks its card through thinking time.** An opponent who sees Qwen3-4B's thinking time, as
-  well as its actions, wins an extra **+17.7 mbb/hand** (95% CI +11.7 to +27.7) in Kuhn poker. A pre-registered
-  replication on fresh samples gave +19.7 (+11.1 to +34.6). With the best card (king), 4B thinks 17–27% less at the
-  decisions its opponent can still react to. Qwen3-0.6B, 1.7B and 8B show no exploitable tell, and neither do
-  DeepSeek-R1-Distill-Qwen-7B and Phi-4-mini-reasoning (Phi's result is limited by the thinking cap).
+- **In Kuhn poker, one model has a confirmed thinking-time tell: Qwen3-4B.** An opponent who sees its thinking time,
+  as well as its actions, wins an extra **+17.7 mbb/hand** (95% CI +11.7 to +27.7). A pre-registered replication on
+  fresh samples gave +19.7 (+11.1 to +34.6). With the best card (king), 4B thinks 17–27% less at the decisions its
+  opponent can still react to. Qwen3-0.6B, 1.7B and 8B and DeepSeek-R1-Distill-Qwen-7B show no tell.
+  Phi-4-mini-reasoning shows no confirmed tell, but a third of its traces hit the thinking cap, so its result is
+  unresolved.
 - **An opponent can learn the tell in a few thousand hands.** A Bayesian opponent that starts knowing nothing and
-  learns only from the hands it plays is +18 mbb/hand ahead of one that ignores timing after 3,000 hands, and its
-  cumulative extra winnings stay positive from then on. By a million hands it reaches +19.4, close to the
-  full-information value.
+  learns only from the hands it plays wins +18 mbb/hand more than one that ignores timing after 3,000 hands. From that
+  point the lower 95% bound of its cumulative extra winnings stays above zero. By a million hands its advantage is
+  +19.4, close to the full-information value.
 - **Leduc is inconclusive by design.** At the 64 samples per information set the budget allowed, a calibration on
   synthetic tells shows the estimator is biased by −60 to −90 mbb/hand and cannot detect even a 240 mbb/hand tell.
   At 512 samples it works (85–90% power, no false positives).
-- **Optimal padding is 3–4 times cheaper than naive padding.** Removing 4B's leak with a linear-program padding
-  schedule adds 990 thinking tokens per decision. Padding every decision to the cap adds 3,206, and random padding
+- **Optimal padding is 3–4 times cheaper than naive padding.** Padding is fit on one half of the traces and scored
+  on the other, where 4B's unpadded leak is 15.2 mbb/hand (the half-sample counterpart of the full-data 17.7). Removing
+  it with a linear-program padding schedule adds 990 thinking tokens per decision. Padding every decision to the cap adds 3,206, and random padding
   needs about 4,100.
-- **Thinking helps, but a solver-distilled model is far better and over 2,000 times cheaper.** Thinking roughly halves
-  the larger models' exploitability in Kuhn. Qwen3-0.6B and 1.7B fine-tuned on the equilibrium, with thinking off, are
-  5–30 times less exploitable than any thinking model, answer in under 10 ms, and generalize to held-out deck and bet
-  sizes.
+- **Thinking helps, but a solver-distilled model is far better and far cheaper.** Thinking roughly halves the larger
+  models' exploitability in Kuhn. Qwen3-0.6B and 1.7B fine-tuned on the equilibrium, with thinking off, are 5–30 times
+  less exploitable than any thinking model and generalize to held-out deck and bet sizes. In Leduc they use
+  2,300–6,200 times less GPU time per hand than thinking models of the same size and answer in under 10 ms.
 - **Thinking time is wall-clock time.** Single-stream latency is linear in thinking tokens (R² ≥ 0.999), at 2.9 ms
   per token for 0.6B and 7.9 ms for 4B on an A100, so token counts are a faithful proxy for what an opponent sees.
 
@@ -112,8 +114,10 @@ data ([`9a23072`](https://github.com/zh1kang/Tanking/commit/9a23072)).
 | Phi-4-mini-reasoning | primary | 6,037 | 33% | 0.993 | −2.7 [−11.3, +11.5] | −1.0 [−4.4, 0.0] | 223 |
 | | replication | 6,085 | 34% | 0.994 | +4.7 [−4.1, +17.3] | −0.8 [−2.9, 0.0] | 226 |
 
-**Pre-registered reading: no tell for either model.** Both primary leaks are below 2 mbb/hand, and both measurements
-are valid (mass above 0.9, at most 0.5% of traces below 0.5).
+**Pre-registered reading: no confirmed tell in either model.** Both measurements are valid (legal-action mass above
+0.9, at most 0.5% of traces below 0.5), and both primary leaks are below the 2 mbb/hand "no tell" line. R1 is null in
+both sets. Phi's replication set reaches +4.7, with a CI that includes 0; together with the cap limit, Phi is best read
+as unresolved rather than tell-free.
 
 - **R1 shows 4B's timing pattern without the leak.** With a king it also thinks less at the decisions its opponent
   can react to (median 2,031 against 2,422–2,476 tokens when opening, 1,673 against 2,064–2,183 after a check). But its
@@ -124,14 +128,13 @@ are valid (mass above 0.9, at most 0.5% of traces below 0.5).
   higher cap might reveal a tell this run cannot.
 - Both play between Qwen3-1.7B and Qwen3-8B with thinking (exploitability 223–231, against 265 and 167).
 
-So among six reasoning models from three families, Qwen3-4B is the only one with an exploitable tell under this
-protocol.
+So among six reasoning models from three families, Qwen3-4B is the only one with a confirmed tell under this protocol.
 
 ## Why Leduc is inconclusive: calibration on synthetic tells
 
 The Leduc null controls exclude 0 for every model, which the pre-registered rule does not allow. To see whether that is
 a property of the estimator, it was run on synthetic thinking times with a planted tell of known size,
-\(\log t = 8 - \delta \cdot \text{rank} / (n_\text{ranks} - 1) + \mathcal{N}(0, 0.5^2)\), on the real information sets and
+$\log t = 8 - \delta \cdot \mathrm{rank} / (n_\mathrm{ranks} - 1) + \mathcal{N}(0, 0.5^2)$, on the real information sets and
 action distributions. The true leak for δ > 0 is the estimator at 4,096 traces per information set; 20 replicates per
 cell.
 
@@ -372,11 +375,13 @@ quantile buckets; the leak is the difference. The best response is fit on one ha
 other, then the halves swap, with 200 bootstrap resamples within information sets. A tell is confirmed if the leak is
 at least 10 mbb/hand with a CI excluding 0 and the null control's CI contains 0; "no tell" means below 2 mbb/hand.
 
-The plan, including this rule, the defenses and the distillation setup, was written before any result
-([plan at `5f8fab0`](https://github.com/zh1kang/Tanking/blob/5f8fab0/PLAN.md)). The repository was created after the
-main runs, so its history does not timestamp the plan. The second-family and learning-opponent rules were committed
-and pushed before any of their data
-([`9a23072`](https://github.com/zh1kang/Tanking/commit/9a23072)).
+**Provenance.** The plan, including this rule, the defenses and the distillation setup, was written before any result
+([plan at `5f8fab0`](https://github.com/zh1kang/Tanking/blob/5f8fab0/PLAN.md)). The git history, however, was
+assembled on 2026-11-08 after the main Qwen3 runs, so its commit dates do not independently timestamp the plan or
+deviations 1–9. The second-family and learning-opponent rules are different: they were committed and pushed
+([`9a23072`](https://github.com/zh1kang/Tanking/commit/9a23072), 2026-11-08 13:09 EST) before any of those jobs ran.
+Every sampled trace set behind the results is committed under `runs/`, so each number can be recomputed from the
+repository.
 
 | | Deviation from the plan | Why |
 |---|---|---|
@@ -397,28 +402,36 @@ and pushed before any of their data
 |---|---|
 | `tanking/` | Game trees and CFR+ (`games`, `solve`), trace data, leak estimator, padding LP and budgets, vLLM engine |
 | `experiments/` | Sampling, analysis, defenses, distillation, serving benchmark, calibration, learning opponent, demo, report, Slurm submit |
+| `runs/` | Sampled traces (per-trace thinking tokens and answer distributions) for every model, game and seed, 7.6 MB |
 | `results/` | JSON outputs of the analysis, replication, other families, defenses, benchmark, calibration and learning opponent |
 | `figures/` | Tell, leak, padding frontier, learning curve and strength-vs-cost figures |
-| `tests/` | Game, solver, estimator and defense tests |
+| `tests/` | Game, solver, estimator, defense and learner tests |
 
 ## Running
 
-Requires Python 3.12 and [uv](https://docs.astral.sh/uv/).
+Requires Python 3.12 and [uv](https://docs.astral.sh/uv/). Sampling needs a Linux GPU node with vLLM; everything
+downstream of the committed traces runs on CPU.
 
 ```bash
 uv sync
-uv run pytest                         # CPU tests
-experiments/submit.sh kuhn            # thinking traces for every model (Slurm, one GPU per shard)
+uv run pytest
+
+# Recompute results from the committed traces (CPU)
+python experiments/analyze.py runs/kuhn/4B/think --out results/analysis
+python experiments/analyze.py runs/kuhn/4B/think_rep --out results/replication
+python experiments/analyze.py runs/kuhn/R1-7B/think --out results/family/primary   # likewise think_rep, Phi4-mini
+python experiments/learner.py run runs/kuhn/4B/think runs/kuhn/4B/think_rep --out results/learner/kuhn_4B_real.json
+experiments/postprocess.sh            # every analysis, defense, figure and table (environment active)
+
+# Resample traces and rerun the GPU stages (Slurm, one GPU per shard)
+experiments/submit.sh kuhn            # every Qwen3 size, thinking and thinking off
 experiments/submit.sh leduc
 experiments/submit.sh kuhn_rep        # replication shards for Kuhn 4B
 experiments/submit.sh family          # DeepSeek-R1-Distill-Qwen-7B and Phi-4-mini-reasoning on Kuhn
-python experiments/analyze.py runs/kuhn/R1-7B/think --out results/family/primary  # and think_rep, Phi4-mini
 experiments/submit.sh distill         # solver-distilled LoRA, then thinking-off evaluation
 experiments/submit.sh heldout
 experiments/submit.sh bench
 experiments/submit.sh calibrate       # CPU
-experiments/postprocess.sh            # analysis, defenses, figures and Markdown tables (with the environment active)
-python experiments/learner.py run runs/kuhn/4B/think runs/kuhn/4B/think_rep --out results/learner/kuhn_4B_real.json
 ```
 
 The Slurm scripts target Princeton's Della cluster; adapt `scripts/job.sbatch` and `scripts/cluster_env.sh`.
